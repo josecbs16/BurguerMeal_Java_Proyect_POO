@@ -1,3 +1,85 @@
+/*
+* Función Principal
+La clase Main es el punto de entrada del programa. Aquí se controla toda la interacción con el usuario y se coordinan los servicios principales. Su estructura sigue un flujo claro:
+
+Inicialización de Servicios:
+
+ProductosServicio: Carga y gestiona todos los productos disponibles (hamburguesas, bebidas, etc.).
+
+CompraServicio: Maneja el carrito de compras.
+
+Scanner: Para leer la entrada del usuario.
+
+Bucle Principal:
+
+Muestra un menú interactivo con opciones numéricas.
+
+Procesa la selección del usuario mediante un switch-case.
+
+Opciones del Menú
+Opción	Acción
+1-4 (Hamburguesas, Bebidas, etc.)	Muestra la lista de productos de esa categoría y permite añadirlos al carrito por su ID.
+5. Ver carrito	Lista los productos añadidos y el total provisional.
+6. Pagar	Genera un ticket con:
+Subtotal.
+
+IVA (21%).
+
+Descuento (10% si hay 3+ productos).
+
+Total final.
+
+Pide confirmación para finalizar la compra. |
+| 0. Salir | Cierra la aplicación. |
+
+Uso de POO en el Código
+Abstracción:
+
+El usuario interactúa con opciones simples (números), mientras internamente se manejan objetos complejos como Producto, Carrito, etc.
+
+Encapsulación:
+
+Los detalles de cómo se almacenan los productos o se calculan los precios están ocultos en las clases de servicio (ProductosServicio, CompraServicio).
+
+Polimorfismo:
+
+Todos los productos (hamburguesas, bebidas, etc.) son tratados como Producto al añadirlos al carrito.
+
+Cada tipo de producto implementa su propia versión de getDescripcion().
+
+Composición:
+
+Main usa ("tiene-un") servicios (ProductosServicio, CompraServicio) en lugar de heredar de ellos.
+
+Flujo de Ejemplo
+Usuario elige "1. Hamburguesas":
+
+Se llama a productos.getHamburguesas() para mostrar la lista.
+
+Si introduce un ID válido, se añade al carrito con carrito.agregarProducto().
+
+Usuario elige "6. Pagar":
+
+Se calcula el total con IVA y descuentos usando PrecioUtil.
+
+Se muestra el ticket y se vacía el carrito si confirma.
+
+Métodos Clave
+Explicación
+productos.getHamburguesas()	Devuelve la lista de hamburguesas para mostrar.
+carrito.agregarProducto()	Añade un producto al carrito (o incrementa su cantidad).
+carrito.calcularTotal()	Suma los precios de todos los productos en el carrito.
+PrecioUtil.calcularPrecioConIVA()	Añade el 21% de IVA a un precio.
+
+Conclusión
+La clase Main es el cerebro de la aplicación:
+
+Coordina todos los componentes (ProductosServicio, CompraServicio).
+
+Gestiona la interacción con el usuario de forma intuitiva.
+
+Aprovecha los principios POO para mantener el código organizado y escalable.*/
+
 package app;
 
 import servicios.*;

@@ -1,3 +1,47 @@
+/*Documentación de CompraServicio
+Propósito
+CompraServicio es la clase encargada de gestionar el carrito de compras en el sistema. Implementa la interfaz ICompra y
+ proporciona funcionalidades para:
+
+Añadir/eliminar productos.
+
+Calcular el total de la compra.
+
+Generar tickets con el resumen de la compra.
+
+Estructura interna:
+
+Usa un Map<String, ItemCarrito> para almacenar los productos, donde:
+
+Clave: ID del producto (String).
+
+Valor: Objeto ItemCarrito (producto + cantidad).
+
+Clase Interna ItemCarrito
+
+Responsabilidad:
+Almacena un producto y su cantidad en el carrito.
+
+Atributos:
+
+producto: Instancia de Producto (ej: Hamburguesa, Bebida).
+
+cantidad: Número de unidades del producto.
+
+Constructor:
+
+ItemCarrito(Producto producto): Inicializa la cantidad en 1 al añadir un producto nuevo.
+
+Métodos Clave
+Explicación
+agregarProducto(Producto p)	Añade un producto al carrito. Si ya existe, incrementa su cantidad. Valida que el producto no sea null.
+eliminarProducto(String id)	Elimina una unidad del producto. Si la cantidad llega a 0, lo quita del carrito. Valida el ID.
+calcularTotal()	Suma el precio de todos los productos (considerando sus cantidades).
+obtenerProductos()	Devuelve una List<Producto> donde cada producto aparece tantas veces como su cantidad.
+generarTicket()	Genera un ticket formateado con: productos, cantidades, precios y total.**/
+
+
+
 package servicios;
 
 import model.abstracts.Producto;

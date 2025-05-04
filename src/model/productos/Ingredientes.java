@@ -1,3 +1,20 @@
+/*Clase Ingredientes
+Responsabilidad:
+Representa ingredientes adicionales para personalizar productos (ej: extra queso, bacon).
+
+Atributos:
+
+extra (boolean): Indica si el ingrediente tiene coste adicional.
+
+Métodos clave:
+
+@Override public String getDescripcion()
+Formato:
+
+        "[Nombre] (extra) - [Precio]€" (si extra == true).
+
+        "[Nombre] - [Precio]€" (si extra == false).*/
+
 package model.productos;
 
 import model.abstracts.Producto;

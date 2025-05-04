@@ -1,5 +1,51 @@
-package servicios;
 
+/*
+Propósito
+ProductosServicio actúa como fachada central para gestionar todos los productos del sistema (hamburguesas, bebidas, complementos y menús). Su objetivo es:
+
+Centralizar el acceso a los diferentes repositorios de productos.
+
+Cargar datos iniciales de ejemplo al iniciar la aplicación.
+
+Proveer métodos para listar productos o buscar por ID.
+
+Estructura interna:
+
+Utiliza cuatro repositorios especializados (uno por tipo de producto).
+
+Los datos se almacenan en memoria gracias a BaseRepo.
+
+Repositorios
+Atributo	Tipo	Descripción
+hamburguesasRepo	HamburguesasRepo	Almacena hamburguesas.
+bebidasRepo	BebidasRepo	Almacena bebidas.
+complementosRepo	ComplementosRepo	Almacena complementos.
+menusRepo	MenusRepo	Almacena menús (combos).
+Métodos Clave
+	Explicación
+cargarDatosIniciales()	Inicializa el sistema con productos de ejemplo (se ejecuta en el constructor).
+getHamburguesas()	Devuelve todas las hamburguesas (List<Hamburguesa>).
+getBebidas()	Devuelve todas las bebidas (List<Bebida>).
+getComplementos()	Devuelve todos los complementos (List<Complemento>).
+getMenus()	Devuelve todos los menús (List<Menu>).
+buscarProducto(String id)	Busca un producto en todos los repositorios por su ID. Devuelve null si no existe.
+Ejemplo de Uso
+
+ProductosServicio productos = new ProductosServicio();
+
+// Obtener todas las hamburguesas
+List<Hamburguesa> hamburguesas = productos.getHamburguesas();
+
+// Buscar un producto por ID
+Producto producto = productos.buscarProducto("B1"); // Devuelve la bebida con ID "B1"
+Ventajas
+✔ Abstracción: Oculta los detalles de los repositorios al resto del sistema.
+✔ Organización: Separa claramente los tipos de productos.
+✔ Facilidad de mantenimiento: Añadir nuevos tipos de productos requiere mínimos cambios.
+
+
+ */
+package servicios;
 import model.abstracts.Producto;
 import repositories.*;
 import model.productos.*;
@@ -63,7 +109,7 @@ public class ProductosServicio {
         return menusRepo.obtenerTodos();
     }
 
-    // Método para buscar cualquier producto por ID
+    // Metodo para buscar cualquier producto por ID
     public Producto buscarProducto(String id) {
         // Busca en todos los repositorios
         Producto p = hamburguesasRepo.buscarPorId(id);
