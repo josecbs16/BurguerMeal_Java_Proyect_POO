@@ -20,8 +20,7 @@ package model.interfaces;
 import java.util.List;
 public interface IRepository<T> {
     void agregar(T obj);
-    void eliminar(String id);
+    boolean eliminar(String id);
     T buscarPorId(String id);
     List<T> obtenerTodos();
-
 }

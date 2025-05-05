@@ -55,6 +55,10 @@ import java.util.Map;
 public class CompraServicio implements ICompra {
     private final Map<String, ItemCarrito> carrito = new HashMap<>();
 
+    public void limpiarCarrito() {
+
+    }
+
     // Clase interna para manejar producto + cantidad
     private static class ItemCarrito {
         final Producto producto;

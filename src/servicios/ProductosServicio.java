@@ -46,53 +46,80 @@ Ventajas
 
  */
 package servicios;
+
 import model.abstracts.Producto;
-import repositories.*;
 import model.productos.*;
+import repositories.*;
 import java.util.*;
 
 public class ProductosServicio {
-    // Repositorios para cada tipo de producto
     private HamburguesasRepo hamburguesasRepo = new HamburguesasRepo();
     private BebidasRepo bebidasRepo = new BebidasRepo();
     private ComplementosRepo complementosRepo = new ComplementosRepo();
     private MenusRepo menusRepo = new MenusRepo();
 
-    // Carga datos iniciales al crear el servicio
     public ProductosServicio() {
         cargarDatosIniciales();
     }
 
-    // Metodo para cargar productos de ejemplo
     private void cargarDatosIniciales() {
         // Hamburguesas
-        hamburguesasRepo.agregar(new Hamburguesa("H1", "Clásica", 5.99,
-                Arrays.asList("Pan", "Carne", "Lechuga")));
-        hamburguesasRepo.agregar(new Hamburguesa("H2", "Especial", 7.50,
-                Arrays.asList("Pan", "Doble carne", "Queso", "Bacon")));
+        agregarHamburguesa(new Hamburguesa("H1", "Clásica", 5.99,
+                Arrays.asList("Pan brioche", "Carne 150g", "Lechuga", "Tomate", "Salsa especial")));
 
+        agregarHamburguesa(new Hamburguesa("H2", "Doble Queso", 7.50,
+                Arrays.asList("Pan artesanal", "Doble carne", "Doble queso cheddar", "Bacon", "Cebolla caramelizada")));
+
+        agregarHamburguesa(new Hamburguesa("H3", "Pollo Crispy", 6.75,
+                Arrays.asList("Pan de semillas", "Pollo empanado", "Lechuga iceberg", "Salsa ranch")));
+
+        agregarHamburguesa(new Hamburguesa("H4", "Vegetariana", 6.25,
+                Arrays.asList("Pan integral", "Hamburguesa de lentejas", "Aguacate", "Rúcula", "Queso de cabra")));
+
+        agregarHamburguesa(new Hamburguesa("H5", "BBQ", 7.99,
+                Arrays.asList("Pan brioche", "Carne 200g", "Bacon", "Cebolla crispy", "Salsa BBQ", "Queso ahumado")));
         // Bebidas
-        bebidasRepo.agregar(new Bebida("B1", "Refresco", 1.99, true, 330));
+        bebidasRepo.agregar(new Bebida("B1", "Coca-Cola", 1.99, true, 330));
         bebidasRepo.agregar(new Bebida("B2", "Agua Mineral", 1.20, false, 500));
-        bebidasRepo.agregar(new Bebida("B3", "Zumo Natural", 2.50, false, 250));
+        bebidasRepo.agregar(new Bebida("B3", "Zumo de Naranja", 2.50, false, 250));
+        bebidasRepo.agregar(new Bebida("B4", "Cerveza ", 3.00, true, 330));
+        bebidasRepo.agregar(new Bebida("B5", "Limonada ", 2.25, true, 400));
 
-        complementosRepo.agregar(new Complemento("C1", "Patatas", 2.50, "Normal"));
-        complementosRepo.agregar(new Complemento("C2", "Patatas Grandes", 3.50, "Extra"));
-        complementosRepo.agregar(new Complemento("C3", "Aros de Cebolla", 3.00, "Normal"));
+        // Complementos
+        complementosRepo.agregar(new Complemento("C1", "Patatas Fritas", 2.50, "Clásicas"));
+        complementosRepo.agregar(new Complemento("C2", "Aros de Cebolla", 3.00, "Crujientes"));
+        complementosRepo.agregar(new Complemento("C3", "Nuggets de Pollo", 3.50, "6 unidades"));
+        complementosRepo.agregar(new Complemento("C4", "Ensalada César", 4.25, "Con pollo"));
+        complementosRepo.agregar(new Complemento("C5", "Alitas Picantes", 4.50, "Buffalo"));
 
-        // Menús (combos)
-        menusRepo.agregar(new Menu("M1", "Menú Clásico", 8.99,
+        // Menús
+        menusRepo.agregar(new Menu("M1", "Menú Clásico", 9.99,
                 hamburguesasRepo.buscarPorId("H1"),
                 bebidasRepo.buscarPorId("B1"),
                 complementosRepo.buscarPorId("C1")));
 
         menusRepo.agregar(new Menu("M2", "Menú Especial", 12.50,
                 hamburguesasRepo.buscarPorId("H2"),
-                bebidasRepo.buscarPorId("B3"),
+                bebidasRepo.buscarPorId("B4"),
                 complementosRepo.buscarPorId("C2")));
+
+        menusRepo.agregar(new Menu("M3", "Menú Pollo", 11.25,
+                hamburguesasRepo.buscarPorId("H3"),
+                bebidasRepo.buscarPorId("B3"),
+                complementosRepo.buscarPorId("C3")));
+
+        menusRepo.agregar(new Menu("M4", "Menú Vegetariano", 10.75,
+                hamburguesasRepo.buscarPorId("H4"),
+                bebidasRepo.buscarPorId("B5"),
+                complementosRepo.buscarPorId("C4")));
+
+        menusRepo.agregar(new Menu("M5", "Menú BBQ", 13.25,
+                hamburguesasRepo.buscarPorId("H5"),
+                bebidasRepo.buscarPorId("B4"),
+                complementosRepo.buscarPorId("C5")));
     }
 
-    // Métodos para obtener listas de productos
+    // Métodos para clientes
     public List<Hamburguesa> getHamburguesas() {
         return hamburguesasRepo.obtenerTodos();
     }
@@ -109,13 +136,43 @@ public class ProductosServicio {
         return menusRepo.obtenerTodos();
     }
 
-    // Metodo para buscar cualquier producto por ID
+    // Métodos para administradores
+    public void agregarHamburguesa(Hamburguesa hamburguesa) {
+        hamburguesasRepo.agregar(hamburguesa);
+    }
+
     public Producto buscarProducto(String id) {
-        // Busca en todos los repositorios
         Producto p = hamburguesasRepo.buscarPorId(id);
         if (p == null) p = bebidasRepo.buscarPorId(id);
         if (p == null) p = complementosRepo.buscarPorId(id);
-        if (p == null) p = menusRepo.buscarPorId(id);
         return p;
     }
+
+    public boolean eliminarProducto(String id) {
+        boolean eliminado = hamburguesasRepo.eliminar(id)
+                || bebidasRepo.eliminar(id)
+                || complementosRepo.eliminar(id)
+                || menusRepo.eliminar(id);
+
+        if (eliminado) {
+            System.out.println(" Producto eliminado!");
+        } else {
+            System.out.println(" Producto no encontrado");
+        }
+        return eliminado;
+    }
+
+    // Metodo para EDITAR nombre y precio de cualquier producto
+    public void editarProducto(String id, String nuevoNombre, double nuevoPrecio) {
+        Producto producto = buscarProducto(id);
+
+        if (producto != null) {
+            producto.setNombre(nuevoNombre);
+            producto.setPrecio(nuevoPrecio);
+            System.out.println(" Producto actualizado: " + producto.getDescripcion());
+        } else {
+            System.out.println(" Error: ID no encontrado");
+        }
+    }
+
 }

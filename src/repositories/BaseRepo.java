@@ -46,8 +46,8 @@ public abstract class BaseRepo<T> implements IRepository<T> {
     }
 
     @Override
-    public void eliminar(String id) {
-        elementos.remove(id);
+    public boolean eliminar(String id) {
+        return elementos.remove(id) != null;
     }
 
     @Override
@@ -59,4 +59,6 @@ public abstract class BaseRepo<T> implements IRepository<T> {
     public List<T> obtenerTodos() {
         return new ArrayList<>(elementos.values());
     }
+
+
 }
